@@ -150,7 +150,7 @@ class AgentService:
         prompt: str,
         history: List[Dict[str, str]]
     ) -> str:
-        model = model_name or "gemini-1.5-flash"
+        model = model_name or "gemini-3.6-flash"
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
         
         contents = []
