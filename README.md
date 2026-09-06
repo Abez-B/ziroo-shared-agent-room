@@ -153,19 +153,24 @@ backend/tests/test_ws_broadcast.py::test_websocket_broadcast_between_two_users P
 
 ---
 
-## ⚙️ Environment Variables
+## ⚙️ Environment Variables & AI Models
 
 Configure these in `backend/.env`:
 
 | Variable | Description | Default |
 | :--- | :--- | :--- |
-| `GEMINI_API_KEY` | Google Gemini API Key | `""` |
+| `GEMINI_API_KEY` | Google Gemini API Key (Recommended) | `""` |
 | `ANTHROPIC_API_KEY`| Anthropic Claude API Key | `""` |
 | `OPENAI_API_KEY` | OpenAI GPT-4o API Key | `""` |
-| `AGENT_MODEL` | Custom model override (e.g. `gemini-3.5-flash`, `gpt-4o-mini`) | Auto |
-| `AGENT_TIMEOUT_SECONDS` | Maximum timeout before graceful degradation | `15.0` |
+| `AGENT_MODEL` | Custom model override (e.g. `gemini-3.6-flash`, `gpt-4o-mini`) | Auto |
+| `AGENT_TIMEOUT_SECONDS` | Maximum timeout before graceful degradation | `25.0` |
 | `DATABASE_PATH` | Path to the SQLite storage file | `./room.db` |
-| `MOCK_LLM` | Enable offline mock responder for fast local tests | `false` |
+| `MOCK_LLM` | Force offline mock responder for fast zero-key testing | `false` |
+
+### 🤖 Live AI vs. Offline Mock Fallback
+- **Live AI Providers (Gemini / Anthropic / OpenAI)**: Provide full, open-ended conversational intelligence (answering questions about books, coding, summaries, and complex queries) while respecting per-user context boundaries.
+- **Offline Mock LLM (Automatic Fallback)**: If no API key is configured or if `MOCK_LLM=true` is set, the backend automatically falls back to an offline deterministic responder. The Mock LLM does **not** answer general world knowledge; instead, it is purpose-built to deterministically test and prove **Context Isolation** (e.g., recalling tokens, secret keys, and user-specific statements) with 0ms latency and zero API cost.
+
 
 ---
 
